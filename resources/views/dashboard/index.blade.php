@@ -15,12 +15,12 @@
                                             <h1><i class="cc BTC warning font-large-2" title="BTC"></i></h1>
                                         </div>
                                         <div class="col-5 pl-2">
-                                            <h4>BTC</h4>
-                                            <h6 class="text-muted">Bitcoin</h6>
+                                            <h4>اجمالى المبيعات</h4>
+
                                         </div>
                                         <div class="col-5 text-right">
                                             <h4>$9,980</h4>
-                                            <h6 class="success darken-4">31% <i class="la la-arrow-up"></i></h6>
+
                                         </div>
                                     </div>
                                 </div>
@@ -41,12 +41,12 @@
                                             <h1><i class="cc ETH blue-grey lighten-1 font-large-2" title="ETH"></i></h1>
                                         </div>
                                         <div class="col-5 pl-2">
-                                            <h4>ETH</h4>
-                                            <h6 class="text-muted">Ethereum</h6>
+                                            <h4>اجمالى الطلبات</h4>
+
                                         </div>
                                         <div class="col-5 text-right">
                                             <h4>$944</h4>
-                                            <h6 class="success darken-4">12% <i class="la la-arrow-up"></i></h6>
+
                                         </div>
                                     </div>
                                 </div>
@@ -67,12 +67,12 @@
                                             <h1><i class="cc XRP info font-large-2" title="XRP"></i></h1>
                                         </div>
                                         <div class="col-5 pl-2">
-                                            <h4>XRP</h4>
-                                            <h6 class="text-muted">Balance</h6>
+                                            <h4>عدد المنتجات</h4>
+
                                         </div>
                                         <div class="col-5 text-right">
                                             <h4>$1.2</h4>
-                                            <h6 class="danger">20% <i class="la la-arrow-down"></i></h6>
+
                                         </div>
                                     </div>
                                 </div>
@@ -93,12 +93,12 @@
                                             <h1><i class="cc XRP info font-large-2" title="XRP"></i></h1>
                                         </div>
                                         <div class="col-5 pl-2">
-                                            <h4>XRP</h4>
-                                            <h6 class="text-muted">Balance</h6>
+                                            <h4>عدد العملاء</h4>
+
                                         </div>
                                         <div class="col-5 text-right">
                                             <h4>$1.2</h4>
-                                            <h6 class="danger">20% <i class="la la-arrow-down"></i></h6>
+
                                         </div>
                                     </div>
                                 </div>
