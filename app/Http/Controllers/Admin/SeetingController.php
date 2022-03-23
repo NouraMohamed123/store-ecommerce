@@ -10,13 +10,28 @@ class SeetingController extends Controller
 {
     public function editShippingMethods($type){
       if($type == 'free'){
-           $data = Seeting::where('key','free_shipping_cost')->first();
+           $shippingMethod = Seeting::where('key','free_shipping_cost')->first();
 
       }elseif($type == 'outer'){
-        $data = Seeting::where('key','outer_shipping_cost')->first();
+        $shippingMethod = Seeting::where('key','outer_shipping_cost')->first();
       }elseif($type == 'inner'){
-        $data = Seeting::where('key','local_shipping_cost')->first();
+        $shippingMethod = Seeting::where('key','local_shipping_cost')->first();
       }
-       return view('dashboard.seetings.edit',compact('data'));
+       return view('dashboard.seetings.edit',compact('shippingMethod'));
     }
+
+    public function updateShippingMethods(Request $request,$id){
+
+    $shipping = Seeting::find($id);
+    $shipping->update([
+        'key'=> $request->key,
+        'value'=>$request->value
+    ]);
+    return redirect()->back()->with(['success' => 'تم تحديث بنجاح']);
+
+    }
+
+
 }
+
+

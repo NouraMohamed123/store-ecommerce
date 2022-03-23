@@ -27,7 +27,7 @@ Route::group([ 'namespace'=> 'Admin' , 'middleware' => 'auth:admin'],function(){
 
     Route::group(['prefix'=> 'settings'], function(){
        Route::get('shipping_method/{type}','SeetingController@editShippingMethods')->name('shipping_method');
-       Route::post('shipping_method/{id}','SeetingController@updateShippingMethods')->name('update_shipping_method');
+       Route::put('shipping_method/{id}','SeetingController@updateShippingMethods')->name('update.shippings.methods');
     });
 
 
