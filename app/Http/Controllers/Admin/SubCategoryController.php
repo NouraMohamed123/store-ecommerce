@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Category;
-class CategoryController extends Controller
+use Illuminate\Http\Request;
+
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::where('parent_id',Null)->paginate(15);
-        return view('dashboard.categories.index',compact('categories'));
-
+        $categories = Category::where('parent_id','!=',Null)->paginate(15);
+        return view('dashboard.subcategories.index',compact('categories'));
     }
 
     /**
@@ -27,8 +27,8 @@ class CategoryController extends Controller
     public function create()
     {
 
-        return view('dashboard.categories.create');
-
+        $categories = Category::where('parent_id',Null)->get();
+        return view('dashboard.subcategories.create',compact('categories'));
     }
 
     /**
@@ -39,6 +39,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
       //  return $request;
         if($request->has('is_active')){
           $request->request->add(['is_active' => 1]);
@@ -52,6 +53,7 @@ class CategoryController extends Controller
         return redirect()->back()->with(['success' => 'تمت إضافة القسم بنجاح']);
 
     }
+
 
 
     /**
@@ -73,9 +75,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-
-         return view('dashboard.categories.edit',compact('category'));
+       $category = Category::find($id);
+       $categories = Category::where('parent_id',Null)->get();
+        return view('dashboard.subcategories.edit',compact('category','categories'));
     }
 
     /**
@@ -85,7 +87,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         $category = Category::find($id);
         if($request->has('is_active')){
@@ -99,7 +101,7 @@ class CategoryController extends Controller
           $category->update($request->except('_token'));
           return redirect()->back()->with(['success' => 'تم تحديث القسم بنجاح']);
 
-    }
+      }
 
     /**
      * Remove the specified resource from storage.
@@ -109,20 +111,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $category = Category::find($id);
-            if(!$category){
-
-             return redirect()->back()->with(['error' => 'هذا القسم غير موجود ']);
-            }{
-                $category->delete();
-             return redirect()->back()->with(['success'=>'تم الحذف بنجاح']);
-            }
-        }catch(\Exception $e){
-            return redirect()->back()->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
-        }
-
-
-
+        $category = Category::find($id);
+        $category->delete();
+        return redirect()->back()->with(['success' => 'تم الحذف  بنجاح']) ;
     }
 }
