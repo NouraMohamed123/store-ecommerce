@@ -8,6 +8,7 @@ use App\Http\Requests\StockProductRequest;
 use App\Models\brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Product_image;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::select('id','slug','name','price', 'created_at')->paginate(15);
+        $products = Product::select('id', 'slug', 'name', 'price', 'created_at')->paginate(15);
         return view('dashboard.products.general.index', compact('products'));
     }
 
@@ -33,9 +34,9 @@ class ProductController extends Controller
     public function create()
     {
         $data = [];
-        $data['brands'] = brand::where('is_active',1)->get();
+        $data['brands'] = brand::where('is_active', 1)->get();
         $data['tags'] = Tag::get();
-        $data['categories'] = Category::where('is_active',1)->get();
+        $data['categories'] = Category::where('is_active', 1)->get();
 
         return view('dashboard.products.general.create', $data);
     }
@@ -62,8 +63,8 @@ class ProductController extends Controller
         $product = Product::create([
             'name' => $request->name,
             'slug' => $request->slug,
-            'description'=>$request->description,
-            'short_description'=> $request->short_description,
+            'description' => $request->description,
+            'short_description' => $request->short_description,
             'brand_id' => $request->brand_id,
             'is_active' => $request->is_active,
 
@@ -79,7 +80,6 @@ class ProductController extends Controller
 
         DB::commit();
         return redirect()->back()->with(['success' => 'تم ألاضافة بنجاح']);
-
     }
 
     /**
@@ -89,34 +89,51 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function getPrice($id){
-      return view('dashboard.products.prices.create',compact('id'));
-     }
-     public function saveProductPrice(Request $request){
-
-
-
-     Product::whereId($request -> product_id) -> update($request -> only(['price','special_price','special_price_type','special_price_start','special_price_end']));
-
-
+    public function getPrice($id)
+    {
+        return view('dashboard.products.prices.create', compact('id'));
     }
-    public function getstock($id){
-        return view('dashboard.products.stock.create',compact('id'));
-       }
+    public function saveProductPrice(Request $request)
+    {
 
 
-    public function saveProductstock(StockProductRequest $request){
 
-       Product::whereId($request -> product_id) -> update($request ->except(['_token','product_id']));
-
-       return redirect()->back()->with(['success' => 'تم ألاضافة بنجاح']);
-
-      }
-      public function getimage($id){
-        return view('dashboard.products.images.create',compact('id'));
-       }
+        Product::whereId($request->product_id)->update($request->only(['price', 'special_price', 'special_price_type', 'special_price_start', 'special_price_end']));
+    }
+    public function getstock($id)
+    {
+        return view('dashboard.products.stock.create', compact('id'));
+    }
 
 
+    public function saveProductstock(StockProductRequest $request)
+    {
+
+        Product::whereId($request->product_id)->update($request->except(['_token', 'product_id']));
+
+        return redirect()->back()->with(['success' => 'تم ألاضافة بنجاح']);
+    }
+    public function getimage($id)
+    {
+        return view('dashboard.products.images.create', compact('id'));
+    }
+
+    public function saveProductimage(Request $request)
+    {
+        $photo = '';
+        if ($request->hasfile('photo')) {
+
+            $photo = $request->file('photo')->getClientOriginalName();
+
+            $request->file('photo')->storeAs('products/' . $photo, $photo, 'products');
+            //$brand->photo =  $photo;
+        }
+        Product_image::create([
+            'product_id' => $request->product_id,
+            'photo' => $photo
+        ]);
+        return redirect()->back()->with(['success' => 'تمت إضافة القسم بنجاح']);
+    }
     public function show(Product $product)
     {
         //

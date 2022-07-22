@@ -123,7 +123,12 @@ Route::group([ 'namespace'=> 'Admin' , 'middleware' => 'auth:admin'],function(){
             Route::post('update/{id}', 'OptionController@update')->name('admin.options.update');
         });
         ################################## end options    #######################################
+        Route::group(['prefix' => 'sliders'], function () {
+            Route::get('/', 'SliderController@addImages')->name('admin.sliders.create');
+            Route::post('images', 'SliderController@saveSliderImages')->name('admin.sliders.images.store');
 
+
+        });
 });
 Route::group([ 'namespace'=> 'Admin' , 'middelware'=>'guest:admin'],function(){
 

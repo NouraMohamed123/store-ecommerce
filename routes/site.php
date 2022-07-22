@@ -16,9 +16,7 @@ Route::get('verfied', function () {
     return view('auth.verification');
 });
 
-Route::get('/', function () {
-    return view('front.home');
-})->name('home');
+Route::get('/','site\HomeController@home')->name('home');
 
 Route::group([ 'namespace'=> 'site' , 'middleware' =>[ 'auth','verfiedUser']],function(){
 
@@ -38,8 +36,8 @@ Route::group([ 'namespace'=> 'Auth' , 'middleware' =>'auth'],function(){
 
 
 
-Route::group([ 'namespace'=> 'site' , 'middleware' => 'guest'],function(){
-    ////
+Route::group([ 'namespace'=> 'Site' , 'middleware' => 'guest'],function(){
+     Route::get('categories/{slug}','CategoryController@slug')->name('category');
 
     });
 

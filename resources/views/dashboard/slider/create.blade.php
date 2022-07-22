@@ -13,7 +13,7 @@
                                 <li class="breadcrumb-item"><a href="">
                                         المنتجات </a>
                                 </li>
-                                <li class="breadcrumb-item active"> أضافه منتج
+                                <li class="breadcrumb-item active"> أضافه صور
                                 </li>
                             </ol>
                         </div>
@@ -44,12 +44,12 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         <form class="form"
-                                              action="{{route('admin.products.images.store')}}"
+                                              action="{{route('admin.sliders.images.store')}}"
                                               method="POST"
                                               enctype="multipart/form-data">
                                             @csrf
 
-                                            <input type="hidden" name="product_id" value="{{$id}}">
+
                                             <div class="form-body">
 
                                                 <h4 class="form-section"><i class="ft-home"></i> صور المنتج </h4>
