@@ -12,7 +12,32 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Route::get('verfied', function () {
+    return view('auth.verification');
 });
+
+Route::get('/','site\HomeController@home')->name('home');
+
+Route::group([ 'namespace'=> 'site' , 'middleware' =>[ 'auth','verfiedUser']],function(){
+
+
+    Route::get('profile',function(){
+       return 'you are Auth';
+    });
+
+});
+
+Route::group([ 'namespace'=> 'Auth' , 'middleware' =>'auth'],function(){
+
+
+    Route::post('verify-user','VerifyUserController@verfiy')->name('verify-user');
+
+});
+
+
+
+Route::group([ 'namespace'=> 'Site' , 'middleware' => 'guest'],function(){
+     Route::get('categories/{slug}','CategoryController@slug')->name('category');
+
+    });
+

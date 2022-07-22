@@ -30,8 +30,6 @@ class SeetingController extends Controller
     return redirect()->back()->with(['success' => 'تم تحديث بنجاح']);
 
     }
-
-
 }
 
 

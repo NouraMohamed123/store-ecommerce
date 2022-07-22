@@ -24,7 +24,7 @@ class AdmilLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'=> 'required|email',
+            'email'=> 'required|unique:admins,email',
             'password'=>'required'
         ];
     }
